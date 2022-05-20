@@ -1,7 +1,6 @@
 #!/usr/local/bin/python3
 
 # Words source: https://www-personal.umich.edu/~jlawler/wordlist
-
 from argparse import ArgumentParser
 from os.path import exists, isdir, expanduser
 from os import chdir
@@ -17,9 +16,7 @@ if not exists('words.txt'):
         exit(1)
 
 parser = ArgumentParser()
-# TODO: Implement an alternative search with positional arg 'letters' and mutually exclusive optional [-b,-m,-e] args
-# parser.add_argument('letters', type=str, help='Beginning letters of the word')
-parser.add_argument('-l', '--length', type=int)
+parser.add_argument('-l', '--length', type=int, default=5, help='Only words with this length will be shown. [default:5]')
 parser.add_argument('-b', '-s', '--start',
                           '--beg', type=str, default='', help='Beginning letters of the word', dest='beg')
 parser.add_argument('-m', '--mid', type=str, default='', help='Letters contained in the middle of the word, after any given beginning letters')
