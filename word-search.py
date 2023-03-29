@@ -24,9 +24,9 @@ parser.add_argument('-e', '--end', type=str, default='', help='Ending letters of
 parser.add_argument('-U', '--unscramble', type=str, help='Invoke the Unscrambler on the given letters - can only be used independently or with the --length arg')
 args = parser.parse_args()
 
-if args.mid and len(args.mid) < 2:
-    print('--mid must be more than one letter')
-    exit(1)
+#if args.mid and len(args.mid) < 2:
+#    print('--mid must be more than one letter')
+#    exit(1)
 if (args.beg or args.mid or args.end) and args.unscramble:
     print('Cannot use positionals [beg, mid, end] with --unscramble argument')
     exit(1)
@@ -36,10 +36,10 @@ with open('words.txt', 'r') as words:
         from unscrambler import Unscrambler
         matches = Unscrambler(words).unscramble(args.unscramble)
     else:
-        matches = [word.strip() for word in words
-                   if word.strip().startswith(args.beg)
-                   and args.mid in word.strip()[len(args.beg):]
-                   and word.strip().endswith(args.end)]
+        matches = [word for word in words.read().split()
+                   if word.startswith(args.beg)
+                   and args.mid in word[len(args.beg):]
+                   and word.endswith(args.end)]
 
 for word in matches:
     if args.length is None:
